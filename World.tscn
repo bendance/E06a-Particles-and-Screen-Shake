@@ -1,20 +1,104 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Camera.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/World.gd" type="Script" id=2]
+[ext_resource path="res://Assets/rigzsoft/Liquids/raindrop.png" type="Texture" id=3]
+[ext_resource path="res://Assets/kenney.nl/smoke_04.png" type="Texture" id=4]
+[ext_resource path="res://Assets/kenney.nl/flame_03.png" type="Texture" id=5]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.485185, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.748047, 0.551374, 0.155716, 1, 0.759766, 0.228856, 0.181413, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0.833333 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.387387 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 2
+emission_box_extents = Vector3( 5, 18, 1 )
+flag_disable_z = true
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 50.0
+angular_velocity = 350.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 25.0
+angle = 45.0
+scale = 0.2
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0.533333 )
+colors = PoolColorArray( 0.462745, 0.486275, 0.501961, 0.188235 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+lifetime_randomness = 0.5
+emission_shape = 2
+emission_box_extents = Vector3( 100, 100, 1 )
+flag_disable_z = true
+direction = Vector3( 30, 30, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 0.5
+angular_velocity = 20.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.2
+color_ramp = SubResource( 7 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_box_extents = Vector3( 100, 100, 1 )
+flag_align_y = true
+flag_disable_z = true
+direction = Vector3( 30, 25, 0 )
+spread = 61.56
+gravity = Vector3( 0, 50, 0 )
+angular_velocity = 25.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 30.0
+scale = 0.2
+color = Color( 0.431373, 0.647059, 0.819608, 1 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Particles1" type="Particles2D" parent="."]
-position = Vector2( 128, 256 )
+position = Vector2( 159.482, 266.28 )
+rotation = -1.5708
+amount = 100
+lifetime = 2.0
+speed_scale = 2.0
+process_material = SubResource( 5 )
+texture = ExtResource( 5 )
 
 [node name="Particles2" type="Particles2D" parent="."]
-position = Vector2( 512, 256 )
+position = Vector2( 516.871, 254.84 )
+amount = 100
+process_material = SubResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="Particles3" type="Particles2D" parent="."]
-position = Vector2( 896, 256 )
+position = Vector2( 896, 255.524 )
+lifetime = 0.01
+process_material = SubResource( 9 )
+texture = ExtResource( 3 )
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 512, 304 )
+current = true
 script = ExtResource( 1 )
